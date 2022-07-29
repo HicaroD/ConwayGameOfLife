@@ -1,8 +1,9 @@
 CC=gcc
+OBJ_NAME=life
 
 game: main.c
-	$(CC) main.c -o life
-	./life
+	$(CC) main.c -o $(OBJ_NAME)
+	./$(OBJ_NAME)
 
 clean:
-	rm life
+	rm $(OBJ_NAME)
