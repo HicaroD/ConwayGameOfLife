@@ -1,4 +1,4 @@
-# ConwayGameOfLife
+# Conway's Game of Life
 Conway's Game Of Life.
 
 ## Goals
