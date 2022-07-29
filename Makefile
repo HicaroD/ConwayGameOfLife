@@ -1,3 +1,8 @@
+CC=gcc
+
 game: main.c
-	gcc main.c -o life
+	$(CC) main.c -o life
 	./life
+
+clean:
+	rm life
