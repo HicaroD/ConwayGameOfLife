@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
-#define WIDTH 720
+#define WIDTH 1280
 #define HEIGHT 480
 
 void check_sdl_error(int code) {
@@ -26,7 +26,7 @@ int main() {
 
     check_sdl_error(SDL_Init(SDL_INIT_VIDEO));
 
-    screen = SDL_CreateWindow("Conway's Game of Life", 0, 0, WIDTH, HEIGHT, SDL_WINDOW_RESIZABLE);
+    screen = SDL_CreateWindow("Conway's Game of Life", 0, 0, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
     check_sdl_pointer_error(screen);
 
     renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
