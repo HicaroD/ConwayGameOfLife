@@ -3,8 +3,7 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
-#define WIDTH 1280
-#define HEIGHT 480
+#include "game.h"
 
 void check_sdl_error(int code) {
     if(code != 0) {
@@ -20,6 +19,17 @@ void check_sdl_pointer_error(void* ptr) {
     }
 }
 
+SDL_Rect build_rect(int x, int y) {
+    SDL_Rect rectangle = { x, y, SQUARE_SIZE, SQUARE_SIZE};
+    return rectangle;
+}
+
+void draw_rect(SDL_Renderer* renderer, int x, int y) {
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_Rect rect = build_rect(x, y);
+    check_sdl_error(SDL_RenderFillRect(renderer, &rect));
+}
+
 int main() {
     SDL_Window* screen;
     SDL_Renderer* renderer;
@@ -33,6 +43,8 @@ int main() {
     check_sdl_pointer_error(renderer);
 
     bool running = true;
+    int flag = 1;
+
     while(running) {
 	SDL_Event event;
 	while(SDL_PollEvent(&event)) {
@@ -42,9 +54,15 @@ int main() {
 		    break;
 	    }
 	}
+	
+	if(flag) {
+	    printf("Drawing rect\n");
+	    draw_rect(renderer, WIDTH/2, HEIGHT/2);
+	}
+	flag ^= 1;
 
-	SDL_SetRenderDrawColor(renderer, 0x0, 0x0, 0x0, 0x0);
-	SDL_RenderClear(renderer);
+	// SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	// SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
     }
 
