@@ -19,17 +19,6 @@ void check_sdl_pointer_error(void* ptr) {
     }
 }
 
-SDL_Rect build_rect(int x, int y) {
-    SDL_Rect rectangle = { x, y, SQUARE_SIZE, SQUARE_SIZE};
-    return rectangle;
-}
-
-void draw_rect(SDL_Renderer* renderer, int x, int y) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_Rect rect = build_rect(x, y);
-    check_sdl_error(SDL_RenderFillRect(renderer, &rect));
-}
-
 int main() {
     SDL_Window* screen;
     SDL_Renderer* renderer;
@@ -57,7 +46,7 @@ int main() {
 	
 	if(flag) {
 	    printf("Drawing rect\n");
-	    draw_rect(renderer, WIDTH/2, HEIGHT/2);
+	    check_sdl_error(draw_rect(renderer, WIDTH/2, HEIGHT/2));
 	}
 	flag ^= 1;
 

@@ -2,10 +2,15 @@
 #define GAME_H
 
 #include <stdbool.h>
+#include <SDL2/SDL.h>
 
 #define WIDTH 1280
 #define HEIGHT 480
 #define SQUARE_SIZE 4
+
+SDL_Rect build_rect(int x, int y);
+
+int draw_rect(SDL_Renderer* renderer, int x, int y);
 
 // Internal representation of Conway's Game of Life board
 struct Game {
