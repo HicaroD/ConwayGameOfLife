@@ -1,10 +1,10 @@
-CC=gcc
+CC=g++
 OBJ_NAME=life
 CCFLAGS=-Wextra -Wall -Werror
 LDFLAGS=/usr/include/SDL2 -D_REENTRANT -pthread -lSDL2
-SOURCE_FILES=main.c game.c
+SOURCE_FILES=main.cpp game.cpp
 
-game: main.c game.c game.h
+game: main.cpp game.cpp game.hpp
 	$(CC) $(CCFLAGS) $(SOURCE_FILES) -o $(OBJ_NAME) -I$(LDFLAGS)
 	./$(OBJ_NAME)
 
