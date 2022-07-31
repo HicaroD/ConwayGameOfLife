@@ -4,9 +4,11 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
-#define WIDTH 1280
-#define HEIGHT 480
-#define SQUARE_SIZE 10
+#define SCALE_FACTOR 20
+#define WIDTH 64
+#define HEIGHT 32
+#define SCREEN_WIDTH 1280 
+#define SCREEN_HEIGHT 640 
 
 enum CellState {
     Dead = 0,
@@ -18,25 +20,22 @@ struct Cell {
     int x, y;
 };
 
-struct Cell* new_cell(int x, int y);
+struct Cell new_cell(int x, int y);
 
 struct Game {
-    struct Cell* grid[HEIGHT][WIDTH];
+    struct Cell grid[HEIGHT][WIDTH];
 };
 
-struct Game* new_game();
+struct Game* new_game(size_t seed_rows, int seed[seed_rows][2]);
 
 void draw_game_board(struct Game* game, SDL_Renderer* renderer);
 
 void update_game_board(struct Game* game);
 
-void set_cell_state_color(SDL_Renderer* renderer, struct Cell* cell);
-
-// Helpers
-bool is_alive(struct Cell* cell);
+void set_cell_state_color(SDL_Renderer* renderer, struct Cell cell);
 
 int count_cell_neighbors(struct Game* game, struct Cell* cell);
 
-SDL_Rect build_rect(int x, int y);
+bool is_cell_on_edge(struct Cell* cell);
 
 #endif
