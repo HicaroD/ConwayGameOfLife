@@ -4,7 +4,7 @@ Conway's Game of Life.
 ## Goals
 
 - Enjoy the beauty of "Life".
-- Learn more about C.
+- Learn more about C++.
 - Code more.
 
 ## Rules
