@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <stdlib.h>
-#include "game.h"
+#include "game.hpp"
 
 struct Cell new_cell(int x, int y) {
     struct Cell cell = { Dead, x, y };

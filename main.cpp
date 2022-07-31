@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <SDL2/SDL.h>
 
-#include "game.h"
+#include "game.hpp"
 
 #define SEED_ROWS 1
 
