@@ -31,8 +31,8 @@ int main() {
     renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     check_sdl_pointer_error(renderer);
 
+    struct Game* game = new_game();
     bool running = true;
-    int flag = 1;
 
     while(running) {
 	SDL_Event event;
@@ -43,15 +43,10 @@ int main() {
 		    break;
 	    }
 	}
-	
-	if(flag) {
-	    printf("Drawing rect\n");
-	    check_sdl_error(draw_rect(renderer, WIDTH/2, HEIGHT/2));
-	}
-	flag ^= 1;
 
-	// SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	// SDL_RenderClear(renderer);
+	update_game_board(game);
+	draw_game_board(game, renderer);
 	SDL_RenderPresent(renderer);
     }
 
