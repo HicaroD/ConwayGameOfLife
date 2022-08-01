@@ -6,7 +6,7 @@
 #include "game.hpp"
 
 Cell new_cell(int x, int y) {
-    struct Cell cell = { Dead, x, y };
+    struct Cell cell = { false, x, y };
     return cell;
 }
 
@@ -22,7 +22,7 @@ Game* new_game(std::vector<std::pair<int, int>>& seed) {
     for(auto &coordinate : seed) {
         int x = coordinate.first;
         int y = coordinate.second;
-        game->grid[y][x].state = Alive;
+        game->grid[y][x].alive = true;
     }
 
     return game;
@@ -41,12 +41,12 @@ void update_game_board(Game* game) {
             struct Cell current_cell = game->grid[h][w];
             int neighbours = count_cell_neighbors(game, &current_cell);
 
-            if(current_cell.state == Alive && (neighbours < 2 || neighbours > 3)) {
-                next_generation_grid[h][w].state = Dead;
-            } else if(current_cell.state == Dead && neighbours == 3) {
-                next_generation_grid[h][w].state = Alive;
+            if(current_cell.alive && (neighbours < 2 || neighbours > 3)) {
+                next_generation_grid[h][w].alive = false;
+            } else if(!current_cell.alive && neighbours == 3) {
+                next_generation_grid[h][w].alive = true;
             } else {
-                next_generation_grid[h][w].state = current_cell.state; 
+                next_generation_grid[h][w].alive = current_cell.alive; 
             }
         }
     }
@@ -67,26 +67,21 @@ int count_cell_neighbors(Game* game, Cell* cell) {
         for(int x = -1; x < 2; x++) {
             int rows = (y_axis + y + HEIGHT) % HEIGHT;
             int columns = (x_axis + x + WIDTH) % WIDTH;
-            sum += (game->grid[rows][columns]).state;
+
+            if(game->grid[rows][columns].alive) sum += 1; 
         }
     }
 
     // The cell itself will not be counted as a neighbour
-    sum -= game->grid[y_axis][x_axis].state;
+    if(game->grid[y_axis][x_axis].alive) sum -= 1; 
     return sum;
 }
 
 void set_cell_state_color(SDL_Renderer* renderer, Cell cell) {
-    switch(cell.state) {
-        case Alive:
-            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-            break;
-        case Dead:
-            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-            break;
-        default:
-            printf("Invalid state. This should never happen!");
-            break;
+    if(cell.alive) {
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    } else {
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     }
 }
 

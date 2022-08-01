@@ -7,16 +7,11 @@
 #include <utility>
 
 #define SCALE_FACTOR 10
-#define WIDTH 80
+#define WIDTH 100
 #define HEIGHT 70
 
-enum CellState {
-    Dead = 0,
-    Alive = 1
-};
-
 struct Cell {
-    CellState state;
+    bool alive;
     int x, y;
 };
 
