@@ -61,7 +61,7 @@ int main() {
     		    running = false;
     		    break;
     	    }
-	    }
+        }
 
     	update_game_board(game);
     	draw_game_board(game, renderer);
