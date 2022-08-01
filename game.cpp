@@ -41,10 +41,8 @@ void update_game_board(Game* game) {
 		int neighbours = count_cell_neighbors(game, &current_cell);
 
 		if(current_cell.state == Alive && (neighbours < 2 || neighbours > 3)) {
-		    printf("Kill cell\n");
 		    game->grid[h][w].state = Dead;
 		} else if(current_cell.state == Dead && neighbours == 3) {
-		    printf("Create cell\n");
 		    game->grid[h][w].state = Alive;
 		}
 	    }
