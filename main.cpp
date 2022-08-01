@@ -43,7 +43,7 @@ int main() {
 
     check_sdl_error(SDL_Init(SDL_INIT_VIDEO));
 
-    screen = SDL_CreateWindow("Conway's Game of Life", 0, 0, SCREEN_WIDTH, SCREEN_WIDTH, SDL_WINDOW_SHOWN);
+    screen = SDL_CreateWindow("Conway's Game of Life", 0, 0, WIDTH * SCALE_FACTOR, HEIGHT * SCALE_FACTOR, SDL_WINDOW_SHOWN);
     check_sdl_pointer_error(screen);
 
     renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -69,8 +69,7 @@ int main() {
 	SDL_RenderPresent(renderer);
     }
 
-    free(game);
-
+    delete game;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(screen);
     SDL_Quit();
