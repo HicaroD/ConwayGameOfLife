@@ -4,8 +4,8 @@ WIDTH = 64
 HEIGHT = 32
 
 def generate_random_pair_of_numbers():
-    x = randint(1, WIDTH)
-    y = randint(1, HEIGHT)
+    x = randint(0, WIDTH)
+    y = randint(0, HEIGHT)
     return x, y
 
 def main():
