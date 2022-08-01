@@ -8,8 +8,6 @@
 #define SCALE_FACTOR 20
 #define WIDTH 64
 #define HEIGHT 32
-#define SCREEN_WIDTH 1280 
-#define SCREEN_HEIGHT 640 
 
 enum CellState {
     Dead = 0,
