@@ -66,6 +66,7 @@ int main() {
 	// SDL_RenderClear(renderer);
 	update_game_board(game);
 	draw_game_board(game, renderer);
+	SDL_Delay(90);
 	SDL_RenderPresent(renderer);
     }
 
