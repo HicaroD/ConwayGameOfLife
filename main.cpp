@@ -10,15 +10,15 @@
 
 void check_sdl_error(int code) {
     if(code != 0) {
-	fprintf(stderr, "SDL ERROR: %s", SDL_GetError());
-	exit(EXIT_FAILURE);
+    	fprintf(stderr, "SDL ERROR: %s", SDL_GetError());
+    	exit(EXIT_FAILURE);
     }
 }
 
 void check_sdl_pointer_error(void* ptr) {
     if(ptr == NULL) {
-	fprintf(stderr, "Couldn't create window: %s", SDL_GetError());
-	exit(EXIT_FAILURE);
+    	fprintf(stderr, "Couldn't create window: %s", SDL_GetError());
+    	exit(EXIT_FAILURE);
     }
 }
 
@@ -29,10 +29,10 @@ std::vector<std::pair<int, int>> read_seed_file() {
     std::string line;
 
     while(std::getline(file, line)) {
-	std::istringstream iss(line);
-	int x, y;
-	if(!(iss >> x >> y)) break;
-	seed.push_back(std::make_pair(x, y));
+    	std::istringstream iss(line);
+    	int x, y;
+    	if(!(iss >> x >> y)) break;
+    	seed.push_back(std::make_pair(x, y));
     }
     return seed;
 }
@@ -54,19 +54,19 @@ int main() {
     bool running = true;
 
     while(running) {
-	SDL_Event event;
-	while(SDL_PollEvent(&event)) {
-	    switch(event.type) {
-		case SDL_QUIT:
-		    running = false;
-		    break;
+    	SDL_Event event;
+    	while(SDL_PollEvent(&event)) {
+    	    switch(event.type) {
+    		case SDL_QUIT:
+    		    running = false;
+    		    break;
+    	    }
 	    }
-	}
 
-	update_game_board(game);
-	draw_game_board(game, renderer);
-	SDL_Delay(90);
-	SDL_RenderPresent(renderer);
+    	update_game_board(game);
+    	draw_game_board(game, renderer);
+    	SDL_Delay(90);
+    	SDL_RenderPresent(renderer);
     }
 
     delete game;
