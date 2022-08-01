@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_video.h>
 #include <vector>
 #include <utility>
 
@@ -34,7 +35,5 @@ void update_game_board(Game* game);
 void set_cell_state_color(SDL_Renderer* renderer, Cell cell);
 
 int count_cell_neighbors(Game* game, Cell* cell);
-
-bool is_cell_on_edge(Cell* cell);
 
 #endif
