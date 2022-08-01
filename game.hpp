@@ -5,7 +5,7 @@
 #include <vector>
 #include <utility>
 
-#define SCALE_FACTOR 20
+#define SCALE_FACTOR 10
 #define WIDTH 64
 #define HEIGHT 32
 
