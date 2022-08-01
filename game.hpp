@@ -6,8 +6,8 @@
 #include <utility>
 
 #define SCALE_FACTOR 10
-#define WIDTH 64
-#define HEIGHT 32
+#define WIDTH 80
+#define HEIGHT 70
 
 enum CellState {
     Dead = 0,
