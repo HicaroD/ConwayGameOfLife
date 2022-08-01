@@ -1,8 +1,6 @@
 # Conway's Game of Life
 Conway's Game of Life.
 
-![demo](demo.mp4)
-
 ## Goals
 
 - Enjoy the beauty of "Life".
