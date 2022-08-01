@@ -28,24 +28,32 @@ Game* new_game(std::vector<std::pair<int, int>>& seed) {
     return game;
 }
 
-bool is_cell_on_edge(Cell* cell) {
-    int x = cell->x;
-    int y = cell->y;
-    return x == 0 || y == 0 || y + 1 >= HEIGHT || x + 1 >= WIDTH;
-}
-
 void update_game_board(Game* game) {
+    Cell next_generation_grid[HEIGHT][WIDTH];
+    for(int i = 0; i < HEIGHT; i++) {
+        for(int j = 0; j < WIDTH; j++) {
+            next_generation_grid[i][j] = new_cell(j, i);
+        }
+    }
+
     for(int h = 0; h < HEIGHT; h++) {
         for(int w = 0; w < WIDTH; w++) {
             struct Cell current_cell = game->grid[h][w];
             int neighbours = count_cell_neighbors(game, &current_cell);
 
-            // TODO: implement rule: "any live cell die in the next generation"
             if(current_cell.state == Alive && (neighbours < 2 || neighbours > 3)) {
-                game->grid[h][w].state = Dead;
+                next_generation_grid[h][w].state = Dead;
             } else if(current_cell.state == Dead && neighbours == 3) {
-                game->grid[h][w].state = Alive;
+                next_generation_grid[h][w].state = Alive;
+            } else {
+                next_generation_grid[h][w].state = current_cell.state; 
             }
+        }
+    }
+
+    for(int h = 0; h < HEIGHT; h++) {
+        for(int w = 0; w < WIDTH; w++) {
+            game->grid[h][w] = next_generation_grid[h][w];
         }
     }
 }
