@@ -38,8 +38,9 @@ void update_game_board(Game* game) {
     for(int h = 0; h < HEIGHT; h++) {
         for(int w = 0; w < WIDTH; w++) {
             struct Cell current_cell = game->grid[h][w];
-
             int neighbours = count_cell_neighbors(game, &current_cell);
+
+            // TODO: implement rule: "any live cell die in the next generation"
             if(current_cell.state == Alive && (neighbours < 2 || neighbours > 3)) {
                 game->grid[h][w].state = Dead;
             } else if(current_cell.state == Dead && neighbours == 3) {
