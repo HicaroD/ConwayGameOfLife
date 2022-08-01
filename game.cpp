@@ -69,10 +69,10 @@ int count_cell_neighbors(Game* game, Cell* cell) {
 void set_cell_state_color(SDL_Renderer* renderer, Cell cell) {
 	switch(cell.state) {
 	    case Alive:
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 		break;
 	    case Dead:
-		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		break;
 
 	    default:
@@ -86,7 +86,7 @@ void draw_game_board(Game* game, SDL_Renderer* renderer) {
 	for(int w = 0; w < WIDTH; w++) {
 	    set_cell_state_color(renderer, game->grid[h][w]);
 	    SDL_Rect rect = { w * SCALE_FACTOR, h * SCALE_FACTOR, SCALE_FACTOR, SCALE_FACTOR};
-	    SDL_RenderFillRect(renderer, &rect);
+	    SDL_RenderDrawRect(renderer, &rect);
 	}
     }
 }
