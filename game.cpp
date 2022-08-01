@@ -1,14 +1,15 @@
 #include <SDL2/SDL.h>
-#include <stdlib.h>
 #include "game.hpp"
+#include <vector>
+#include <utility>
 
-struct Cell new_cell(int x, int y) {
+Cell new_cell(int x, int y) {
     struct Cell cell = { Dead, x, y };
     return cell;
 }
 
-struct Game* new_game(size_t rows, int seed[rows][2]) {
-    struct Game* game = (struct Game*)malloc(sizeof(struct Game));
+Game* new_game(std::vector<std::pair<int, int>>& seed) {
+    Game* game = new Game;
 
     for(int i = 0; i < HEIGHT; i++) {
 	for(int j = 0; j < WIDTH; j++) {
@@ -16,22 +17,22 @@ struct Game* new_game(size_t rows, int seed[rows][2]) {
 	}
     }
 
-    for(size_t row = 0; row < rows; row++) {
-	int x = seed[row][0];
-	int y = seed[row][1];
+    for(auto &coordinate : seed) {
+	int x = coordinate.first;
+	int y = coordinate.second;
 	game->grid[y][x].state = Alive;
     }
 
     return game;
 }
 
-bool is_cell_on_edge(struct Cell* cell) {
+bool is_cell_on_edge(Cell* cell) {
     int x = cell->x;
     int y = cell->y;
     return x == 0 || y == 0 || y + 1 >= HEIGHT || x + 1 >= WIDTH;
 }
 
-void update_game_board(struct Game* game) {
+void update_game_board(Game* game) {
     for(int h = 0; h < HEIGHT; h++) {
 	for(int w = 0; w < WIDTH; w++) {
 	    struct Cell current_cell = game->grid[h][w];
@@ -51,7 +52,7 @@ void update_game_board(struct Game* game) {
     }
 }
 
-int count_cell_neighbors(struct Game* game, struct Cell* cell) {
+int count_cell_neighbors(Game* game, Cell* cell) {
     int sum = 0;
     int x_axis = cell->x;
     int y_axis = cell->y;
@@ -67,7 +68,7 @@ int count_cell_neighbors(struct Game* game, struct Cell* cell) {
     return sum;
 }
 
-void set_cell_state_color(SDL_Renderer* renderer, struct Cell cell) {
+void set_cell_state_color(SDL_Renderer* renderer, Cell cell) {
 	switch(cell.state) {
 	    case Alive:
 		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
@@ -82,7 +83,7 @@ void set_cell_state_color(SDL_Renderer* renderer, struct Cell cell) {
 	}
 }
 
-void draw_game_board(struct Game* game, SDL_Renderer* renderer) {
+void draw_game_board(Game* game, SDL_Renderer* renderer) {
     for(int h = 0; h < HEIGHT; h++) {
 	for(int w = 0; w < WIDTH; w++) {
 	    set_cell_state_color(renderer, game->grid[h][w]);

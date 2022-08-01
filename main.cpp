@@ -1,11 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <fstream>
+#include <utility>
 #include <SDL2/SDL.h>
 
 #include "game.hpp"
-
-#define SEED_ROWS 1
 
 void check_sdl_error(int code) {
     if(code != 0) {
@@ -21,17 +22,20 @@ void check_sdl_pointer_error(void* ptr) {
     }
 }
 
-/* int** generate_random_seed() { */
-/*     for(int row = 0; row < SEED_ROWS; row++) { */
-/* 	int x = rand() % WIDTH; */
-/* 	int y = rand() % HEIGHT; */
+std::vector<std::pair<int, int>> read_seed_file() {
+    std::vector<std::pair<int, int>> seed = {};
 
-/* 	seed[row][0] = y; */
-/* 	seed[row][1] = x; */
-/*     } */
+    std::ifstream file("seed.txt");
+    std::string line;
 
-/*     return seed; */
-/* } */
+    while(std::getline(file, line)) {
+	std::istringstream iss(line);
+	int x, y;
+	if(!(iss >> x >> y)) break;
+	seed.push_back(std::make_pair(x, y));
+    }
+    return seed;
+}
 
 int main() {
     SDL_Window* screen;
@@ -45,8 +49,8 @@ int main() {
     renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     check_sdl_pointer_error(renderer);
 
-    int seed[SEED_ROWS][2] = {{10, 10}};
-    struct Game* game = new_game(SEED_ROWS, seed);
+    std::vector<std::pair<int, int>> seed = read_seed_file();
+    Game* game = new_game(seed);
     bool running = true;
 
     while(running) {
