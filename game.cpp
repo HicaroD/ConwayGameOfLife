@@ -1,7 +1,9 @@
 #include <SDL2/SDL.h>
-#include "game.hpp"
 #include <vector>
 #include <utility>
+#include <iostream>
+
+#include "game.hpp"
 
 Cell new_cell(int x, int y) {
     struct Cell cell = { Dead, x, y };
@@ -37,15 +39,11 @@ void update_game_board(Game* game) {
         for(int w = 0; w < WIDTH; w++) {
             struct Cell current_cell = game->grid[h][w];
 
-            // TODO: Implement "no border" feature
-            if(!is_cell_on_edge(&current_cell)) {
-                int neighbours = count_cell_neighbors(game, &current_cell);
-
-                if(current_cell.state == Alive && (neighbours < 2 || neighbours > 3)) {
-                    game->grid[h][w].state = Dead;
-                } else if(current_cell.state == Dead && neighbours == 3) {
-                    game->grid[h][w].state = Alive;
-                }
+            int neighbours = count_cell_neighbors(game, &current_cell);
+            if(current_cell.state == Alive && (neighbours < 2 || neighbours > 3)) {
+                game->grid[h][w].state = Dead;
+            } else if(current_cell.state == Dead && neighbours == 3) {
+                game->grid[h][w].state = Alive;
             }
         }
     }
@@ -58,7 +56,9 @@ int count_cell_neighbors(Game* game, Cell* cell) {
 
     for(int y = -1; y < 2; y++) {
         for(int x = -1; x < 2; x++) {
-            sum += (game->grid[y_axis + y][x_axis + x]).state;
+            int rows = (y_axis + y + HEIGHT) % HEIGHT;
+            int columns = (x_axis + x + WIDTH) % WIDTH;
+            sum += (game->grid[rows][columns]).state;
         }
     }
 
