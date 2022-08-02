@@ -1,7 +1,7 @@
 from random import randint
 
-WIDTH = 64
-HEIGHT = 32
+WIDTH = 100
+HEIGHT = 70
 
 def generate_random_pair_of_numbers():
     x = randint(0, WIDTH)
